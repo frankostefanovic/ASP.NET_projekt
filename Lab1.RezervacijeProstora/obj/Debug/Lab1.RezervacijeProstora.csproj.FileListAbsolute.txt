@@ -1,0 +1,7 @@
+C:\Users\Franko\source\repos\Lab1.RezervacijeProstora\Lab1.RezervacijeProstora\bin\Debug\Lab1.RezervacijeProstora.exe.config
+C:\Users\Franko\source\repos\Lab1.RezervacijeProstora\Lab1.RezervacijeProstora\bin\Debug\Lab1.RezervacijeProstora.exe
+C:\Users\Franko\source\repos\Lab1.RezervacijeProstora\Lab1.RezervacijeProstora\bin\Debug\Lab1.RezervacijeProstora.pdb
+C:\Users\Franko\source\repos\Lab1.RezervacijeProstora\Lab1.RezervacijeProstora\obj\Debug\Lab1.RezervacijeProstora.csproj.AssemblyReference.cache
+C:\Users\Franko\source\repos\Lab1.RezervacijeProstora\Lab1.RezervacijeProstora\obj\Debug\Lab1.RezervacijeProstora.csproj.CoreCompileInputs.cache
+C:\Users\Franko\source\repos\Lab1.RezervacijeProstora\Lab1.RezervacijeProstora\obj\Debug\Lab1.RezervacijeProstora.exe
+C:\Users\Franko\source\repos\Lab1.RezervacijeProstora\Lab1.RezervacijeProstora\obj\Debug\Lab1.RezervacijeProstora.pdb
