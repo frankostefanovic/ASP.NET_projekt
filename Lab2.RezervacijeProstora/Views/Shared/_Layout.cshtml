@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Lab2.RezervacijeProstora</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Lab2.RezervacijeProstora.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <a asp-controller="Home" asp-action="Index">Početna</a>
+            <a asp-controller="ProstorZaProbu" asp-action="Index">Prostori</a>
+            <a asp-controller="Korisnik" asp-action="Index">Korisnici</a>
+            <a asp-controller="Rezervacija" asp-action="Index">Rezervacije</a>
+            <a asp-controller="Oprema" asp-action="Index">Oprema</a>
+            <a asp-controller="Placanje" asp-action="Index">Plaćanja</a>
+            <a asp-controller="Recenzija" asp-action="Index">Recenzije</a>
+            <a asp-controller="Vlasnik" asp-action="Index">Vlasnici</a>
+            <a asp-controller="Lokacija" asp-action="Index">Lokacije</a>
+        </nav>
+    </header>
+    <main role="main" class="page-content">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - Lab2.RezervacijeProstora - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

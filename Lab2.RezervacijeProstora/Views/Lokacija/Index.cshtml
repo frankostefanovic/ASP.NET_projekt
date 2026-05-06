@@ -1,0 +1,41 @@
+﻿@model List<Lab2.RezervacijeProstora.Models.Lokacija>
+
+@{
+    ViewData["Title"] = "Lokacije";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <span>Lokacije</span>
+</nav>
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">Pregled</p>
+        <h1>Lokacije</h1>
+        <p>Popis lokacija na kojima se nalaze prostori za probe.</p>
+    </div>
+
+    <div class="cards-grid">
+        @foreach (var lokacija in Model)
+        {
+            <article class="custom-card">
+                <h3>@lokacija.Grad</h3>
+                <p>@lokacija.Adresa</p>
+
+                <div class="card-meta">
+                    <span>@lokacija.PostanskiBroj</span>
+                    <span>@lokacija.Drzava</span>
+                </div>
+
+                <a asp-controller="Lokacija"
+                       asp-action="Details"
+                       asp-route-id="@lokacija.Id"
+                       class="details-link">
+                    Detalji lokacije
+                </a>
+            </article>
+        }
+    </div>
+</section>

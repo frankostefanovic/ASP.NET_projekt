@@ -1,0 +1,92 @@
+﻿@model Lab2.RezervacijeProstora.Models.ProstorZaProbu
+
+@{
+    ViewData["Title"] = "Detalji prostora";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <a asp-controller="ProstorZaProbu" asp-action="Index">Prostori za probu</a>
+    <span>/</span>
+    <span>@Model.Naziv</span>
+</nav>
+
+<section class="details-hero">
+    <div>
+        <p class="eyebrow">Detalji prostora</p>
+        <h1>@Model.Naziv</h1>
+        <p>@Model.Lokacija.Adresa, @Model.Lokacija.Grad</p>
+    </div>
+
+    <div class="price-badge">
+        @Model.CijenaPoSatu € / h
+    </div>
+</section>
+
+<section class="details-grid">
+    <article class="details-panel">
+        <h2>Osnovni podaci</h2>
+
+        <p><strong>Kapacitet:</strong> @Model.KapacitetOsoba osoba</p>
+        <p><strong>Parking:</strong> @(Model.ImaParking ? "Da" : "Ne")</p>
+        <p><strong>Klima:</strong> @(Model.ImaKlimu ? "Da" : "Ne")</p>
+        <p><strong>Status:</strong> @(Model.Aktivan ? "Aktivan" : "Neaktivan")</p>
+        <p><strong>Datum dodavanja:</strong> @Model.DatumDodavanja.ToString("dd.MM.yyyy.")</p>
+        <p><strong>Prosječna ocjena:</strong> @Model.ProsjecnaOcjena()</p>
+    </article>
+
+    <article class="details-panel">
+        <h2>Vlasnik</h2>
+
+        <p><strong>Ime:</strong> @Model.Vlasnik.ImePrezime</p>
+        <p><strong>Email:</strong> @Model.Vlasnik.Email</p>
+        <p><strong>Telefon:</strong> @Model.Vlasnik.BrojTelefona</p>
+    </article>
+
+    <article class="details-panel">
+        <h2>Oprema</h2>
+
+        @if (Model.Oprema.Count == 0)
+        {
+            <p>Nema unesene opreme.</p>
+        }
+        else
+        {
+            <ul class="clean-list">
+                @foreach (var oprema in Model.Oprema)
+                {
+                    <li>
+                        @oprema.Naziv
+                        <span>@(oprema.Ispravna ? "ispravna" : "neispravna")</span>
+                    </li>
+                }
+            </ul>
+        }
+    </article>
+
+    <article class="details-panel">
+        <h2>Rezervacije</h2>
+
+        @if (Model.Rezervacije.Count == 0)
+        {
+            <p>Nema rezervacija za ovaj prostor.</p>
+        }
+        else
+        {
+            <ul class="clean-list">
+                @foreach (var rezervacija in Model.Rezervacije)
+                {
+                    <li>
+                        @rezervacija.Korisnik.ImePrezime
+                        <span>@rezervacija.DatumVrijemeOd.ToString("dd.MM.yyyy. HH:mm")</span>
+                    </li>
+                }
+            </ul>
+        }
+    </article>
+</section>
+
+<a asp-controller="ProstorZaProbu" asp-action="Index" class="back-link">
+    ← Povratak na prostore
+</a>

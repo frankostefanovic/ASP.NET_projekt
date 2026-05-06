@@ -1,3 +1,4 @@
 <Solution>
-  <Project Path="Lab1.RezervacijeProstora/Lab1.RezervacijeProstora.csproj" />
+  <Project Path="Lab1.RezervacijeProstora/Lab1.RezervacijeProstora.csproj" Id="fbf11900-9679-40e6-b69e-d7791973d9b8" />
+  <Project Path="Lab2.RezervacijeProstora/Lab2.RezervacijeProstora.csproj" Id="ff7a3390-3e10-46dd-9e4f-42b9b7d04b32" />
 </Solution>

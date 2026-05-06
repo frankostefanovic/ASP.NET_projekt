@@ -1,0 +1,60 @@
+﻿@model Lab2.RezervacijeProstora.Models.Vlasnik
+
+@{
+    ViewData["Title"] = "Detalji vlasnika";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <a asp-controller="Vlasnik" asp-action="Index">Vlasnici</a>
+    <span>/</span>
+    <span>@Model.ImePrezime</span>
+</nav>
+
+<section class="details-hero">
+    <div>
+        <p class="eyebrow">Detalji vlasnika</p>
+        <h1>@Model.ImePrezime</h1>
+        <p>@Model.Email</p>
+    </div>
+
+    <div class="price-badge">
+        @Model.Prostori.Count prostora
+    </div>
+</section>
+
+<section class="details-grid">
+    <article class="details-panel">
+        <h2>Kontakt</h2>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Telefon:</strong> @Model.BrojTelefona</p>
+        <p><strong>OIB:</strong> @Model.Oib</p>
+        <p><strong>Datum registracije:</strong> @Model.DatumRegistracije.ToString("dd.MM.yyyy.")</p>
+    </article>
+
+    <article class="details-panel">
+        <h2>Prostori</h2>
+
+        @if (Model.Prostori.Count == 0)
+        {
+            <p>Nema prostora.</p>
+        }
+        else
+        {
+            <ul class="clean-list">
+                @foreach (var prostor in Model.Prostori)
+                {
+                    <li>
+                        @prostor.Naziv
+                        <span>@prostor.Lokacija.Grad</span>
+                    </li>
+                }
+            </ul>
+        }
+    </article>
+</section>
+
+<a asp-controller="Vlasnik" asp-action="Index" class="back-link">
+    ← Povratak na vlasnike
+</a>

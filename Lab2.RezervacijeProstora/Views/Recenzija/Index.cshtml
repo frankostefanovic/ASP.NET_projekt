@@ -1,0 +1,43 @@
+﻿@model List<Lab2.RezervacijeProstora.Models.Recenzija>
+
+@{
+    ViewData["Title"] = "Recenzije";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <span>Recenzije</span>
+</nav>
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">Pregled</p>
+        <h1>Recenzije</h1>
+        <p>Mišljenja korisnika o prostorima za probe.</p>
+    </div>
+
+    <div class="cards-grid">
+        @foreach (var recenzija in Model)
+        {
+            <article class="custom-card">
+                <h3>@recenzija.Prostor.Naziv</h3>
+                <p>@recenzija.Korisnik.ImePrezime</p>
+
+                <div class="card-meta">
+                    <span>Ocjena: @recenzija.Ocjena/5</span>
+                    <span>@recenzija.DatumRecenzije.ToString("dd.MM.yyyy.")</span>
+                </div>
+
+                <p>@recenzija.Komentar</p>
+
+                <a asp-controller="Recenzija"
+                       asp-action="Details"
+                       asp-route-id="@recenzija.Id"
+                       class="details-link">
+                    Detalji recenzije
+                </a>
+            </article>
+        }
+    </div>
+</section>

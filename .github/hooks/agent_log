@@ -1,0 +1,203 @@
+# Agent log
+# Each entry: ISO timestamp - ROLE - short summary
+
+2026-05-06T12:00:00Z - USER - "dali mozes spremat nase poruke u .github/hooks/agent_log"
+2026-05-06T12:00:10Z - ASSISTANT - Created this log file and recorded the user's request.
+2026-05-06T12:01:00Z - USER - "yes i would like that"
+2026-05-06T12:01:05Z - ASSISTANT - User consented; added helper script to enable auto-appending future messages.
+2026-05-06T12:02:00Z - USER - Lab 3: "Koje NuGet pakete trebam za EF Core + SQL Server? (samo potvrdi pakete, ne mijenjaj kôd)"
+2026-05-06T12:02:10Z - ASSISTANT - Provjerio .csproj; preporučio 3 obavezna paketa: Microsoft.EntityFrameworkCore, SqlServer provider, Tools za migracije.
+2026-05-06T12:03:00Z - USER - "pokreni instalaciju ta 3 paketa"
+2026-05-06T12:03:15Z - ASSISTANT - Instalacija uspješna: sve 3 paketa verzije 10.0.7 dodane u .csproj
+2026-05-06T12:04:00Z - USER - Lab 3 Korak 2: "Napravi ApplicationDbContext s DbSetovima za sve modele"
+2026-05-06T12:04:10Z - ASSISTANT - Kreiran ApplicationDbContext: nasljeđuje DbContext, sadrži 11 DbSet svojstava za sve modele
+2026-05-06T12:05:00Z - USER - "makni Dbset za enume"
+2026-05-06T12:05:05Z - ASSISTANT - Uklonjeni DbSet za TipKorisnika, StatusRezervacije, NacinPlacanja; ostaje 8 DbSet za glavne modele
+2026-05-06T12:06:00Z - USER - "Dodaj connection string u appsettings.json i registriraj DbContext u Program.cs (LocalDB)"
+2026-05-06T12:06:15Z - ASSISTANT - Dodana ConnectionStrings u appsettings.json i DbContext registracija u Program.cs (LocalDB)
+2026-05-06T12:07:00Z - USER - "Objasni migracije: kako kreirati i primjeniti"
+2026-05-06T12:07:10Z - ASSISTANT - Objasnio migracije: add Initial (generiše kod), database update (stvara bazu); EF tool već instaliran
+2026-05-06T12:08:00Z - USER - "Uskladi EF Core pakete na verziju 10.0.0 i pokreni migracije"
+2026-05-06T12:08:30Z - ASSISTANT - Ažurirao pakete na 10.0.0, restore/build OK, InitialCreate migracija generirana; LocalDB proces ne startuje
+2026-05-06T12:09:00Z - USER - "Pomozi mi provjeriti i pokrenuti LocalDB"
+2026-05-06T12:09:15Z - ASSISTANT - MSSQLLocalDB instanca postoji ali ne može startati (SQL Server proces failed); pokušao reset ali greška ostaje; nema SQL Server Expressa
+2026-05-06T12:10:00Z - USER - "Prebaci na SQLite jer LocalDB ne radi"
+2026-05-06T12:10:45Z - ASSISTANT - Prebacio na SQLite: instalirao Sqlite paket, promijenio connection string i UseSqlite, regenerirao migracije, baza rezervacije-prostora.db kreirana (102 KB)
+
+# Agent conversation log
+
+Log kreiran: 2026-05-04T00:00:00Z
+
+Napomena: Ovdje ću zapisivati relevantne poruke i log poziva sub-agenta za UX po vašem zahtjevu. Svaka nova stavka bit će dodana uz vremensku oznaku i kratak sažetak.
+
+---
+2026-05-04T00:00:00Z - START LOG
+Policy: Zapisujem svu daljnju komunikaciju ("sve") prema zahtjevu korisnika.
+Format: [ISO timestamp] - <Kratki saetak>
+Sadraj: po defaultu biljeim originalnu poruku i eventualne logove poziva pod-agenta (UX sub-agent).
+Lokacija: .github/hooks/agent_log
+---
+2026-05-04T12:00:00Z - USER: "okej super sad imam vjezbu broj 2 za napraviti"
+Snimam korisnikov zahtjev. Cekam potvrdu plana i izbor entiteta za implementaciju Index/Details i jedinstveni UX.
+
+2026-05-04T12:01:00Z - ASSISTANT: "Pitanje: krenem li s planom ili odmah implementiram? Koji entiteti su prioritet?"
+
+2026-05-04T12:05:00Z - USER: "Radim Lab 2... Za sada nemoj pisati puno koda. Prvo provjeri i objasni koju MVC strukturu projekt treba imati za ovu vježbu. Želim da mi kažeš trebam li imati ove foldere: Controllers, Models, Repositories, ViewModels, Views, wwwroot/css, Agents, lab-2. Također mi napiši koje datoteke ćemo kasnije staviti u svaki folder, ali nemoj još generirati cijeli projekt."
+
+2026-05-04T12:10:00Z - USER: "zapisuj nas razgovor u agent_log gdje sam poceo zapisivat sve"
+Snimam korisnikov zahtjev: od sada ću dodavati svaku relevantnu poruku u ovaj agent_log s vremenskom oznakom i sažetkom.
+
+2026-05-04T12:10:05Z - ASSISTANT: "Zapisujem. Svaka nova poruka bit će dopisana u .github/hooks/agent_log." 
+2026-05-04T12:15:00Z - USER: "Radim Lab 2 ASP.NET Core MVC projekt za temu \"Web aplikacija za rezervacije prostora za probe\". Napravi u folderu Repositories datoteku MockDataStore.cs i napuni mock podacima (Korisnici, Prostori, Rezervacije, Oprema, Placanja, Recenzije, Vlasnici, Lokacije)."
+Snimam zahtjev: kreiranje MockDataStore.cs s povezanih mock podacima za sve entitete.
+
+2026-05-04T12:16:00Z - ASSISTANT: "Kreirao sam datoteku Lab2.RezervacijeProstora/Repositories/MockDataStore.cs koja sadrži public static MockDataStore i inicijalizirane liste podataka." 
+Zapisujem informaciju o kreiranju datoteke i kratak opis sadržaja.
+
+2026-05-04T12:16:05Z - SYSTEM: create_file Lab2.RezervacijeProstora/Repositories/MockDataStore.cs - SUCCESS
+
+2026-05-04T12:16:30Z - USER: "zaspisi razgovor do sada i za u buduce u .github/hooks/agent_log"
+Snimam zahtjev: od sada ću dopisivati svaku relevantnu poruku u ovaj agent_log s vremenskom oznakom i kratkim sažetkom.
+
+---
+
+
+---
+
+## ?? SESSION: UX/UI Analiza - 2026-05-05 00:53:03
+**Agent:** UX/UI Sub-agent  
+**Status:** ? COMPLETED
+
+### ?? Analizirani Elementi:
+- Home/Index.cshtml - Hero sekcija, stat cards, sections
+- _Layout.cshtml - Navigacijska struktura
+- site.css - Boje, layout, komponente
+- ProstorZaProbu/Details.cshtml - Details prikaz
+- ProstorZaProbu/Index.cshtml - Card grid layout
+
+### ?? Klju�ne Preporuke - TOP 5:
+
+1. **Breadcrumbs Pobolj�anja**: Dodati hover efekte, vi�i kontrast, ikonice
+   - Trenutno: Jednostavne razine bez interaktivnosti
+   - Predlog: Styling s transition-ima, split-a separator
+
+2. **Card Layout Dinamika**: Pobolj�ati hover state-ove
+   - Trenutno: Minimalan hover efekt
+   - Predlog: Gradient overlay, shadow, transform translateY, border color change
+
+3. **Details Panel Naglasi**: Dodati color-coded left border
+   - Trenutno: Isti izgled svih panela
+   - Predlog: 4px left border (#7c3aed), razli�ite boje po tipu panela
+
+4. **Hero Section Dinamika**: Dodati background animation
+   - Trenutno: Stati�an gradient
+   - Predlog: Floating element animacija, radial gradient animation
+
+5. **Navigacija Reorganizacija**: Grupiranje modula
+   - Trenutno: Linearna lista svih linkova
+   - Predlog: Tri grupe - Pregled, Aktivnosti, Sustav
+
+### ?? CSS Elementi za Implementaciju:
+- Flex transitions s cubic-bezier easing
+- Radial gradient backgrounds s animation
+- Focus-visible state-ove za accessibility
+- Media queries optimizacija (640px, 768px)
+- Status badge stilovi
+
+### ? Zaklju�ak:
+Aplikacija ima solidnu tamnu temu s ljubi�astim akcentima. Potrebne su CSS pobolj�anja za:
+- Bolje micro-interactions
+- Vizualnu diferencijaciju komponenti  
+- Bolji kontrast za accessibility
+- Responsive optimizacija
+
+Sve preporuke su UX/UI fokusirane bez promjene funkcionalnosti.
+
+**Detaljni report:** Dostupan u datoteci .github/hooks/agent_log/analysis/ux-ui-detailed-report.md
+
+---
+
+**Izvje�taj dostupan na:** .github/hooks/agent_log_analysis/ux-ui-detailed-report-2026-05-05.md
+
+**Sa�etak:** Detaljne preporuke za 7 klju�nih UX/UI �reja aplikacije s konkretnim CSS primjerima i HTML strukturom. Uklju�uje breadcrumbs, card layout, details stranice, navigaciju, hero sekciju, animacije, accessibility i responsive design.
+
+---
+
+**Quick Start dostupan na:** .github/hooks/agent_log_analysis/quick-start-30min-guide.md
+
+---
+
+## ?? KLJU�NE PREPORUKE - TOP 5:
+
+1. **Breadcrumbs** - Hover efekti, bolji styling, ikonice
+2. **Card Hover** - Gradient, shadow, transform, border color
+3. **Details Panels** - Left purple border (#7c3aed), padding
+4. **Focus States** - Outline na svim linkova/gumba (accessibility)
+5. **Button States** - Hover transform, shadow, color transition
+
+## ?? ANALIZA REZULTATA:
+
+**Analizirano:**
+- Home/Index.cshtml ?
+- _Layout.cshtml ?
+- site.css ?
+- ProstorZaProbu/Index.cshtml ?
+- ProstorZaProbu/Details.cshtml ?
+
+**Prona�eno:**
+- ? 5 mjesta za CSS pobolj�anja
+- ? 2 mjesta za HTML strukturne pobolj�anja
+- ? 3 accessibility propusta
+- ? 7 komponenti za upgrade
+
+**Preporu�eno:**
+- 4 CSS faze implementacije
+- 1 brza 30-minuta verzija
+- 50+ konkretnih CSS primjera
+- 20+ HTML primjera
+
+## ? STATUS: KOMPLETNO
+
+Sve preporuke su:
+- Specifi�ne s CSS/HTML primjerima
+- Fokusirane na UX/UI (bez baze podataka)
+- Accessibility-aware (WCAG AA)
+- Responsive design optimizirane
+- Bez promjene poslovne logike
+
+---
+
+**Sa�etak dostupan na:** .github/hooks/agent_log_analysis/SUMMARY.md
+
+---
+
+## ?? DOSTUPNI DOKUMENTI (3 datoteke):
+
+1. **SUMMARY.md** - Brz pregled analize (~5 min �itanja)
+2. **ux-ui-detailed-report-2026-05-05.md** - Detaljne preporuke s primjerima (~30 min �itanja)
+3. **quick-start-30min-guide.md** - Brz vodi�i za implementaciju (~15 min �itanja)
+
+---
+
+## ?? PREPORU�ENI REDOSLIJED:
+
+1. Pro�itaj SUMMARY.md (5 min)
+2. Pro�itaj quick-start-30min-guide.md (15 min)
+3. Primijeni Top 5 promjena (30 min)
+4. Pro�itaj detaljni report (30 min)
+5. Primijeni ostale preporuke (4-8 sati)
+
+---
+
+## ?? HOTTEST RECOMMENDATIONS:
+
+? **Breadcrumbs hover** - Biggest visual impact  
+? **Card glow effect** - Most professional  
+? **Focus states** - Most important for a11y  
+? **Details panel border** - Best hierarchy  
+? **Button transitions** - Most polished
+
+---
+
+**Zavr�eno:** 2026-05-05 00:53:03  
+**Agent:** UX/UI Sub-agent ?

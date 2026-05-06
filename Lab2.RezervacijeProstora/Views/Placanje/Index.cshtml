@@ -1,0 +1,53 @@
+﻿@model List<Lab2.RezervacijeProstora.Models.Placanje>
+
+@{
+    ViewData["Title"] = "Plaćanja";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <span>Plaćanja</span>
+</nav>
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">Pregled</p>
+        <h1>Plaćanja</h1>
+        <p>Popis svih izvršenih i neizvršenih plaćanja.</p>
+    </div>
+
+    <div class="cards-grid">
+        @foreach (var placanje in Model)
+        {
+            <article class="custom-card">
+                <h3>Transakcija #@placanje.Id</h3>
+
+                <p>@placanje.Rezervacija.Prostor.Naziv</p>
+
+                <div class="card-meta">
+                    <span>@placanje.Iznos €</span>
+                    <span>@placanje.NacinPlacanja</span>
+                </div>
+
+                <div class="tag-row">
+                    @if (placanje.Uspjesno)
+                    {
+                        <span class="tag">Uspješno</span>
+                    }
+                    else
+                    {
+                        <span class="tag muted">Neuspješno</span>
+                    }
+                </div>
+
+                <a asp-controller="Placanje"
+                       asp-action="Details"
+                       asp-route-id="@placanje.Id"
+                       class="details-link">
+                    Detalji plaćanja
+                </a>
+            </article>
+        }
+    </div>
+</section>

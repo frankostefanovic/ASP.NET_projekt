@@ -1,0 +1,63 @@
+﻿@model List<Lab2.RezervacijeProstora.Models.ProstorZaProbu>
+
+@{
+    ViewData["Title"] = "Prostori za probu";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <span>Prostori za probu</span>
+</nav>
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">Pregled</p>
+        <h1>Prostori za probu</h1>
+        <p>Odaberi prostor i pogledaj detalje o cijeni, opremi, lokaciji i rezervacijama.</p>
+    </div>
+
+    <div class="cards-grid">
+        @foreach (var prostor in Model)
+        {
+            <article class="custom-card">
+                <h3>@prostor.Naziv</h3>
+
+                <p>@prostor.Lokacija.Grad, @prostor.Lokacija.Adresa</p>
+
+                <div class="card-meta">
+                    <span>@prostor.KapacitetOsoba osoba</span>
+                    <span>@prostor.CijenaPoSatu € / h</span>
+                </div>
+
+                <div class="tag-row">
+                    @if (prostor.ImaParking)
+                    {
+                        <span class="tag">Parking</span>
+                    }
+
+                    @if (prostor.ImaKlimu)
+                    {
+                        <span class="tag">Klima</span>
+                    }
+
+                    @if (prostor.Aktivan)
+                    {
+                        <span class="tag">Aktivan</span>
+                    }
+                    else
+                    {
+                        <span class="tag muted">Neaktivan</span>
+                    }
+                </div>
+
+                <a asp-controller="ProstorZaProbu"
+                       asp-action="Details"
+                       asp-route-id="@prostor.Id"
+                       class="details-link">
+                    Pogledaj detalje
+                </a>
+            </article>
+        }
+    </div>
+</section>

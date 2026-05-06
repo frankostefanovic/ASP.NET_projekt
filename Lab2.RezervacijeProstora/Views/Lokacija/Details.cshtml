@@ -1,0 +1,39 @@
+﻿@model Lab2.RezervacijeProstora.Models.Lokacija
+
+@{
+    ViewData["Title"] = "Detalji lokacije";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <a asp-controller="Lokacija" asp-action="Index">Lokacije</a>
+    <span>/</span>
+    <span>@Model.Grad</span>
+</nav>
+
+<section class="details-hero">
+    <div>
+        <p class="eyebrow">Detalji lokacije</p>
+        <h1>@Model.Grad</h1>
+        <p>@Model.Adresa</p>
+    </div>
+
+    <div class="price-badge">
+        @Model.PostanskiBroj
+    </div>
+</section>
+
+<section class="details-grid">
+    <article class="details-panel">
+        <h2>Adresa</h2>
+        <p><strong>Grad:</strong> @Model.Grad</p>
+        <p><strong>Adresa:</strong> @Model.Adresa</p>
+        <p><strong>Poštanski broj:</strong> @Model.PostanskiBroj</p>
+        <p><strong>Država:</strong> @Model.Drzava</p>
+    </article>
+</section>
+
+<a asp-controller="Lokacija" asp-action="Index" class="back-link">
+    ← Povratak na lokacije
+</a>

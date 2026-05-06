@@ -1,0 +1,52 @@
+﻿@model Lab2.RezervacijeProstora.Models.Recenzija
+
+@{
+    ViewData["Title"] = "Detalji recenzije";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <a asp-controller="Recenzija" asp-action="Index">Recenzije</a>
+    <span>/</span>
+    <span>Recenzija #@Model.Id</span>
+</nav>
+
+<section class="details-hero">
+    <div>
+        <p class="eyebrow">Detalji recenzije</p>
+        <h1>@Model.Prostor.Naziv</h1>
+        <p>@Model.Korisnik.ImePrezime</p>
+    </div>
+
+    <div class="price-badge">
+        @Model.Ocjena / 5
+    </div>
+</section>
+
+<section class="details-grid">
+    <article class="details-panel">
+        <h2>Recenzija</h2>
+        <p><strong>Ocjena:</strong> @Model.Ocjena / 5</p>
+        <p><strong>Datum:</strong> @Model.DatumRecenzije.ToString("dd.MM.yyyy.")</p>
+        <p><strong>Komentar:</strong> @Model.Komentar</p>
+    </article>
+
+    <article class="details-panel">
+        <h2>Korisnik</h2>
+        <p><strong>Ime:</strong> @Model.Korisnik.ImePrezime</p>
+        <p><strong>Email:</strong> @Model.Korisnik.Email</p>
+        <p><strong>Tip:</strong> @Model.Korisnik.TipKorisnika</p>
+    </article>
+
+    <article class="details-panel">
+        <h2>Prostor</h2>
+        <p><strong>Naziv:</strong> @Model.Prostor.Naziv</p>
+        <p><strong>Lokacija:</strong> @Model.Prostor.Lokacija.Grad, @Model.Prostor.Lokacija.Adresa</p>
+        <p><strong>Cijena:</strong> @Model.Prostor.CijenaPoSatu € / h</p>
+    </article>
+</section>
+
+<a asp-controller="Recenzija" asp-action="Index" class="back-link">
+    ← Povratak na recenzije
+</a>

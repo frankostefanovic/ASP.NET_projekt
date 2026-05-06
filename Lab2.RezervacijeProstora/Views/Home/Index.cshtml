@@ -1,0 +1,98 @@
+﻿@model Lab2.RezervacijeProstora.ViewModels.HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Početna";
+}
+
+<section class="hero-section">
+    <div class="hero-content">
+        <p class="eyebrow">Rezervacije prostora za probe</p>
+        <h1>Pronađi prostor za sljedeću probu bez kaosa.</h1>
+        <p class="hero-text">
+            Pregledaj dostupne prostore, opremu, rezervacije i recenzije na jednom mjestu.
+        </p>
+
+        <div class="hero-actions">
+            <a asp-controller="ProstorZaProbu" asp-action="Index" class="primary-button">
+                Pregled prostora
+            </a>
+            <a asp-controller="Rezervacija" asp-action="Index" class="secondary-button">
+                Pregled rezervacija
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="stats-grid">
+    <div class="stat-card">
+        <span>@Model.BrojProstora</span>
+        <p>prostora</p>
+    </div>
+
+    <div class="stat-card">
+        <span>@Model.BrojKorisnika</span>
+        <p>korisnika</p>
+    </div>
+
+    <div class="stat-card">
+        <span>@Model.BrojRezervacija</span>
+        <p>rezervacija</p>
+    </div>
+
+    <div class="stat-card">
+        <span>@Model.BrojOpreme</span>
+        <p>komada opreme</p>
+    </div>
+</section>
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">Istaknuto</p>
+        <h2>Prostori za probu</h2>
+    </div>
+
+    <div class="cards-grid">
+        @foreach (var prostor in Model.IstaknutiProstori)
+        {
+            <article class="custom-card">
+                <h3>@prostor.Naziv</h3>
+                <p>@prostor.Lokacija.Grad, @prostor.Lokacija.Adresa</p>
+
+                <div class="card-meta">
+                    <span>@prostor.KapacitetOsoba osoba</span>
+                    <span>@prostor.CijenaPoSatu € / h</span>
+                </div>
+
+                <a asp-controller="ProstorZaProbu"
+                       asp-action="Details"
+                       asp-route-id="@prostor.Id"
+                       class="details-link">
+                    Detalji prostora
+                </a>
+            </article>
+        }
+    </div>
+</section>
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">Aktivnost</p>
+        <h2>Zadnje rezervacije</h2>
+    </div>
+
+    <div class="timeline-list">
+        @foreach (var rezervacija in Model.ZadnjeRezervacije)
+        {
+            <div class="timeline-item">
+                <div>
+                    <strong>@rezervacija.Korisnik.ImePrezime</strong>
+                    <p>@rezervacija.Prostor.Naziv</p>
+                </div>
+
+                <span>
+                    @rezervacija.DatumVrijemeOd.ToString("dd.MM.yyyy. HH:mm")
+                </span>
+            </div>
+        }
+    </div>
+</section>

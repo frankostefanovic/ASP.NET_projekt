@@ -1,0 +1,41 @@
+﻿@model List<Lab2.RezervacijeProstora.Models.Korisnik>
+
+@{
+    ViewData["Title"] = "Korisnici";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <span>Korisnici</span>
+</nav>
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">Pregled</p>
+        <h1>Korisnici</h1>
+        <p>Popis korisnika koji rezerviraju prostore za probe.</p>
+    </div>
+
+    <div class="cards-grid">
+        @foreach (var korisnik in Model)
+        {
+            <article class="custom-card">
+                <h3>@korisnik.ImePrezime</h3>
+                <p>@korisnik.KorisnickoIme</p>
+
+                <div class="card-meta">
+                    <span>@korisnik.TipKorisnika</span>
+                    <span>@korisnik.Rezervacije.Count rezervacija</span>
+                </div>
+
+                <a asp-controller="Korisnik"
+                       asp-action="Details"
+                       asp-route-id="@korisnik.Id"
+                       class="details-link">
+                    Detalji korisnika
+                </a>
+            </article>
+        }
+    </div>
+</section>

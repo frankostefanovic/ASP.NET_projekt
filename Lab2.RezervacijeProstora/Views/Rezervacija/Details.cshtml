@@ -1,0 +1,69 @@
+﻿@model Lab2.RezervacijeProstora.Models.Rezervacija
+
+@{
+    ViewData["Title"] = "Detalji rezervacije";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <a asp-controller="Rezervacija" asp-action="Index">Rezervacije</a>
+    <span>/</span>
+    <span>Rezervacija #@Model.Id</span>
+</nav>
+
+<section class="details-hero">
+    <div>
+        <p class="eyebrow">Detalji rezervacije</p>
+        <h1>@Model.Prostor.Naziv</h1>
+        <p>@Model.Korisnik.ImePrezime</p>
+    </div>
+
+    <div class="price-badge">
+        @Model.Status
+    </div>
+</section>
+
+<section class="details-grid">
+    <article class="details-panel">
+        <h2>Termin</h2>
+        <p><strong>Početak:</strong> @Model.DatumVrijemeOd.ToString("dd.MM.yyyy. HH:mm")</p>
+        <p><strong>Kraj:</strong> @Model.DatumVrijemeDo.ToString("dd.MM.yyyy. HH:mm")</p>
+        <p><strong>Trajanje:</strong> @Model.TrajanjeUSatima() h</p>
+        <p><strong>Datum kreiranja:</strong> @Model.DatumKreiranja.ToString("dd.MM.yyyy. HH:mm")</p>
+    </article>
+
+    <article class="details-panel">
+        <h2>Korisnik i prostor</h2>
+        <p><strong>Korisnik:</strong> @Model.Korisnik.ImePrezime</p>
+        <p><strong>Email:</strong> @Model.Korisnik.Email</p>
+        <p><strong>Prostor:</strong> @Model.Prostor.Naziv</p>
+        <p><strong>Lokacija:</strong> @Model.Prostor.Lokacija.Grad, @Model.Prostor.Lokacija.Adresa</p>
+    </article>
+
+    <article class="details-panel">
+        <h2>Financije</h2>
+        <p><strong>Cijena po satu:</strong> @Model.Prostor.CijenaPoSatu €</p>
+        <p><strong>Ukupna cijena:</strong> @Model.UkupnaCijena() €</p>
+
+        @if (Model.Placanje == null)
+        {
+            <p>Plaćanje nije evidentirano.</p>
+        }
+        else
+        {
+            <p><strong>Način plaćanja:</strong> @Model.Placanje.NacinPlacanja</p>
+            <p><strong>Uspješno:</strong> @(Model.Placanje.Uspjesno ? "Da" : "Ne")</p>
+            <p><strong>Broj transakcije:</strong> @Model.Placanje.BrojTransakcije</p>
+        }
+    </article>
+
+    <article class="details-panel">
+        <h2>Napomena</h2>
+        <p>@Model.Napomena</p>
+    </article>
+</section>
+
+<a asp-controller="Rezervacija" asp-action="Index" class="back-link">
+    ← Povratak na rezervacije
+</a>

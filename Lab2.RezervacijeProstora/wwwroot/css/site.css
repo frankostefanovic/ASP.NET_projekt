@@ -1,0 +1,351 @@
+
+body {
+    margin: 0;
+    background: #0f1117;
+    color: #f4f4f5;
+    font-family: Arial, sans-serif;
+}
+
+.main-nav {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 18px 32px;
+    background: #171a23;
+    border-bottom: 1px solid #2b3040;
+}
+
+    .main-nav a {
+        color: #f4f4f5;
+        text-decoration: none;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: #222635;
+    }
+
+        .main-nav a:hover {
+            background: #7c3aed;
+        }
+
+.hero-section,
+.section-block,
+.details-hero,
+.details-grid {
+    max-width: 1100px;
+    margin: 32px auto;
+    padding: 0 20px;
+}
+
+.hero-content {
+    padding: 50px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, #1f2333, #351c4d);
+}
+
+.eyebrow {
+    color: #a78bfa;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+}
+
+.hero-content h1,
+.section-heading h1,
+.section-heading h2,
+.details-hero h1 {
+    font-size: 42px;
+    margin: 12px 0;
+}
+
+.hero-text {
+    max-width: 650px;
+    color: #c4c4cc;
+}
+
+.primary-button,
+.secondary-button,
+.details-link,
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 16px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.primary-button,
+.details-link {
+    background: #7c3aed;
+    color: white;
+}
+
+.primary-button:hover,
+.details-link:hover {
+    background: #8b5cf6;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(124, 58, 237, 0.3);
+}
+
+.primary-button:focus-visible,
+.details-link:focus-visible {
+    outline: 2px solid #a78bfa;
+    outline-offset: 2px;
+}
+
+.secondary-button,
+.back-link {
+    background: transparent;
+    color: #f4f4f5;
+    border: 2px solid #272b3a;
+}
+
+.secondary-button:hover,
+.back-link:hover {
+    border-color: #7c3aed;
+    background: rgba(124, 58, 237, 0.1);
+    transform: translateY(-2px);
+}
+
+.secondary-button:focus-visible,
+.back-link:focus-visible {
+    outline: 2px solid #7c3aed;
+    outline-offset: 2px;
+}
+
+.stats-grid,
+.cards-grid,
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+}
+
+.stat-card,
+.custom-card,
+.details-panel {
+    background: linear-gradient(135deg, #171a23 0%, #1a1e2e 100%);
+    border: 1px solid #2b3040;
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 280px;
+}
+
+.custom-card:hover {
+    border-color: #7c3aed;
+    background: linear-gradient(135deg, #1a1e2e 0%, rgba(124, 58, 237, 0.15) 100%);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(124, 58, 237, 0.15);
+}
+
+.custom-card h3 {
+    color: #f4f4f5;
+    font-size: 18px;
+    margin: 0 0 8px 0;
+    transition: color 0.3s ease;
+}
+
+.custom-card:hover h3 {
+    color: #a78bfa;
+}
+
+    .stat-card span {
+        font-size: 36px;
+        font-weight: bold;
+        color: #a78bfa;
+    }
+
+/* DETAILS PANEL - MINUTA 10-15 */
+
+.details-panel {
+    background: linear-gradient(135deg, #171a23 0%, #1a1e2e 100%);
+    border: 1px solid #2b3040;
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 280px;
+}
+
+/* Left accent border */
+.details-panel::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, #7c3aed, #a78bfa);
+    border-radius: 16px 0 0 16px;
+}
+
+.details-panel h2 {
+    color: #f4f4f5;
+    font-size: 18px;
+    margin: 0 0 16px 0;
+    padding-left: 12px;
+    border-bottom: 1px solid #2b3040;
+    padding-bottom: 12px;
+}
+
+.card-meta,
+.tag-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+    .card-meta span,
+    .tag {
+        background: #272b3a;
+        padding: 7px 10px;
+        border-radius: 999px;
+        font-size: 13px;
+    }
+
+.tag {
+    color: #c4b5fd;
+}
+
+    .tag.muted {
+        color: #fca5a5;
+    }
+
+.breadcrumbs {
+    max-width: 1100px;
+    margin: 24px auto 0;
+    padding: 0 20px;
+    color: #a1a1aa;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    flex-wrap: wrap;
+}
+
+.breadcrumbs a {
+    color: #a78bfa;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.breadcrumbs a:hover {
+    color: #f4f4f5;
+    background: rgba(124, 58, 237, 0.2);
+}
+
+.breadcrumbs span {
+    color: #2b3040;
+}
+
+.breadcrumbs span:last-child {
+    color: #f4f4f5;
+    font-weight: 600;
+}
+
+.price-badge {
+    background: #7c3aed;
+    padding: 16px 22px;
+    border-radius: 18px;
+    font-weight: bold;
+}
+
+.details-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #171a23;
+    border: 1px solid #2b3040;
+    border-radius: 26px;
+    padding: 30px;
+}
+
+.clean-list {
+    list-style: none;
+    padding: 0;
+}
+
+    .clean-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid #2b3040;
+    }
+
+.timeline-list {
+    display: grid;
+    gap: 12px;
+}
+
+.timeline-item {
+    display: flex;
+    justify-content: space-between;
+    background: #171a23;
+    border: 1px solid #2b3040;
+    border-radius: 18px;
+    padding: 18px;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    flex: 1;
+    width: 100%;
+}
+footer,
+.footer {
+    position: static !important;
+    margin-top: auto;
+    padding: 20px 32px;
+    background: #171a23;
+    border-top: 1px solid #2b3040 !important;
+    color: #a1a1aa !important;
+    text-align: center;
+}
+
+
+
+/* ACCESSIBILITY IMPROVEMENTS - MINUTA 1-5 */
+
+/* Focus outline za sve linkove i gumbe */
+*:focus-visible {
+    outline: 2px solid #a78bfa;
+    outline-offset: 2px;
+}
+
+/* Minimum touch/click target */
+a, button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Disabled state */
+button:disabled,
+a[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

@@ -1,0 +1,52 @@
+﻿@model List<Lab2.RezervacijeProstora.Models.Oprema>
+
+@{
+    ViewData["Title"] = "Oprema";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <span>Oprema</span>
+</nav>
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">Pregled</p>
+        <h1>Oprema</h1>
+        <p>Popis opreme dostupne u prostorima za probe.</p>
+    </div>
+
+    <div class="cards-grid">
+        @foreach (var oprema in Model)
+        {
+            <article class="custom-card">
+                <h3>@oprema.Naziv</h3>
+                <p>@oprema.Proizvodac</p>
+
+                <div class="card-meta">
+                    <span>@oprema.Vrijednost €</span>
+                    <span>@oprema.Prostori.Count prostora</span>
+                </div>
+
+                <div class="tag-row">
+                    @if (oprema.Ispravna)
+                    {
+                        <span class="tag">Ispravna</span>
+                    }
+                    else
+                    {
+                        <span class="tag muted">Neispravna</span>
+                    }
+                </div>
+
+                <a asp-controller="Oprema"
+                       asp-action="Details"
+                       asp-route-id="@oprema.Id"
+                       class="details-link">
+                    Detalji opreme
+                </a>
+            </article>
+        }
+    </div>
+</section>

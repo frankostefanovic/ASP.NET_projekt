@@ -1,0 +1,59 @@
+﻿@model Lab2.RezervacijeProstora.Models.Oprema
+
+@{
+    ViewData["Title"] = "Detalji opreme";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <a asp-controller="Oprema" asp-action="Index">Oprema</a>
+    <span>/</span>
+    <span>@Model.Naziv</span>
+</nav>
+
+<section class="details-hero">
+    <div>
+        <p class="eyebrow">Detalji opreme</p>
+        <h1>@Model.Naziv</h1>
+        <p>@Model.Proizvodac</p>
+    </div>
+
+    <div class="price-badge">
+        @(Model.Ispravna ? "Ispravna" : "Neispravna")
+    </div>
+</section>
+
+<section class="details-grid">
+    <article class="details-panel">
+        <h2>Osnovni podaci</h2>
+        <p><strong>Proizvođač:</strong> @Model.Proizvodac</p>
+        <p><strong>Vrijednost:</strong> @Model.Vrijednost €</p>
+        <p><strong>Status:</strong> @(Model.Ispravna ? "Ispravna" : "Neispravna")</p>
+    </article>
+
+    <article class="details-panel">
+        <h2>Prostori u kojima se nalazi</h2>
+
+        @if (Model.Prostori.Count == 0)
+        {
+            <p>Oprema nije dodana ni u jedan prostor.</p>
+        }
+        else
+        {
+            <ul class="clean-list">
+                @foreach (var prostor in Model.Prostori)
+                {
+                    <li>
+                        @prostor.Naziv
+                        <span>@prostor.Lokacija.Grad</span>
+                    </li>
+                }
+            </ul>
+        }
+    </article>
+</section>
+
+<a asp-controller="Oprema" asp-action="Index" class="back-link">
+    ← Povratak na opremu
+</a>

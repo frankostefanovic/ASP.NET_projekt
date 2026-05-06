@@ -1,0 +1,46 @@
+﻿@model List<Lab2.RezervacijeProstora.Models.Rezervacija>
+
+@{
+    ViewData["Title"] = "Rezervacije";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <span>Rezervacije</span>
+</nav>
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">Pregled</p>
+        <h1>Rezervacije</h1>
+        <p>Popis svih rezervacija prostora za probe.</p>
+    </div>
+
+    <div class="cards-grid">
+        @foreach (var rezervacija in Model)
+        {
+            <article class="custom-card">
+                <h3>@rezervacija.Prostor.Naziv</h3>
+                <p>@rezervacija.Korisnik.ImePrezime</p>
+
+                <div class="card-meta">
+                    <span>@rezervacija.Status</span>
+                    <span>@rezervacija.DatumVrijemeOd.ToString("dd.MM.yyyy. HH:mm")</span>
+                </div>
+
+                <div class="tag-row">
+                    <span class="tag">@rezervacija.BrojSudionika sudionika</span>
+                    <span class="tag">@rezervacija.UkupnaCijena() €</span>
+                </div>
+
+                <a asp-controller="Rezervacija"
+                       asp-action="Details"
+                       asp-route-id="@rezervacija.Id"
+                       class="details-link">
+                    Detalji rezervacije
+                </a>
+            </article>
+        }
+    </div>
+</section>

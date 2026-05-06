@@ -1,0 +1,59 @@
+﻿@model Lab2.RezervacijeProstora.Models.Korisnik
+
+@{
+    ViewData["Title"] = "Detalji korisnika";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <a asp-controller="Korisnik" asp-action="Index">Korisnici</a>
+    <span>/</span>
+    <span>@Model.ImePrezime</span>
+</nav>
+
+<section class="details-hero">
+    <div>
+        <p class="eyebrow">Detalji korisnika</p>
+        <h1>@Model.ImePrezime</h1>
+        <p>@Model.KorisnickoIme</p>
+    </div>
+
+    <div class="price-badge">
+        @Model.TipKorisnika
+    </div>
+</section>
+
+<section class="details-grid">
+    <article class="details-panel">
+        <h2>Kontakt</h2>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Telefon:</strong> @Model.BrojTelefona</p>
+        <p><strong>Datum registracije:</strong> @Model.DatumRegistracije.ToString("dd.MM.yyyy.")</p>
+    </article>
+
+    <article class="details-panel">
+        <h2>Rezervacije korisnika</h2>
+
+        @if (Model.Rezervacije.Count == 0)
+        {
+            <p>Korisnik nema rezervacija.</p>
+        }
+        else
+        {
+            <ul class="clean-list">
+                @foreach (var rezervacija in Model.Rezervacije)
+                {
+                    <li>
+                        @rezervacija.Prostor.Naziv
+                        <span>@rezervacija.DatumVrijemeOd.ToString("dd.MM.yyyy. HH:mm")</span>
+                    </li>
+                }
+            </ul>
+        }
+    </article>
+</section>
+
+<a asp-controller="Korisnik" asp-action="Index" class="back-link">
+    ← Povratak na korisnike
+</a>

@@ -1,0 +1,47 @@
+﻿@model Lab2.RezervacijeProstora.Models.Placanje
+
+@{
+    ViewData["Title"] = "Detalji plaćanja";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a>
+    <span>/</span>
+    <a asp-controller="Placanje" asp-action="Index">Plaćanja</a>
+    <span>/</span>
+    <span>Transakcija #@Model.Id</span>
+</nav>
+
+<section class="details-hero">
+    <div>
+        <p class="eyebrow">Detalji plaćanja</p>
+        <h1>Transakcija #@Model.Id</h1>
+        <p>@Model.Rezervacija.Prostor.Naziv</p>
+    </div>
+
+    <div class="price-badge">
+        @Model.Iznos €
+    </div>
+</section>
+
+<section class="details-grid">
+    <article class="details-panel">
+        <h2>Podaci o plaćanju</h2>
+        <p><strong>Iznos:</strong> @Model.Iznos €</p>
+        <p><strong>Način plaćanja:</strong> @Model.NacinPlacanja</p>
+        <p><strong>Status:</strong> @(Model.Uspjesno ? "Uspješno" : "Neuspješno")</p>
+        <p><strong>Datum:</strong> @Model.DatumPlacanja.ToString("dd.MM.yyyy.")</p>
+        <p><strong>Broj transakcije:</strong> @Model.BrojTransakcije</p>
+    </article>
+
+    <article class="details-panel">
+        <h2>Povezana rezervacija</h2>
+        <p><strong>Korisnik:</strong> @Model.Rezervacija.Korisnik.ImePrezime</p>
+        <p><strong>Prostor:</strong> @Model.Rezervacija.Prostor.Naziv</p>
+        <p><strong>Termin:</strong> @Model.Rezervacija.DatumVrijemeOd.ToString("dd.MM.yyyy. HH:mm")</p>
+    </article>
+</section>
+
+<a asp-controller="Placanje" asp-action="Index" class="back-link">
+    ← Povratak na plaćanja
+</a>
