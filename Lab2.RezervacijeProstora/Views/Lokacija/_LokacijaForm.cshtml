@@ -1,0 +1,26 @@
+@model Lokacija
+
+<div class="col-md-6">
+    <label asp-for="Grad" class="form-label"></label>
+    <input asp-for="Grad" class="form-control" />
+    <span asp-validation-for="Grad" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    <label asp-for="Adresa" class="form-label"></label>
+    <input asp-for="Adresa" class="form-control" />
+    <span asp-validation-for="Adresa" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    <label asp-for="PostanskiBroj" class="form-label"></label>
+    <input asp-for="PostanskiBroj" class="form-control" />
+    <span asp-validation-for="PostanskiBroj" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    <label asp-for="Drzava" class="form-label"></label>
+    <input asp-for="Drzava" class="form-control" />
+    <span asp-validation-for="Drzava" class="text-danger"></span>
+</div>
+<div class="col-12">
+    <button type="submit" class="btn btn-primary">Spremi</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Odustani</a>
+</div>

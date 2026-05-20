@@ -6,6 +6,10 @@ namespace Lab2.RezervacijeProstora.Models
 {
     public class Rezervacija
     {
+        //Anotacijama EF-u i validaciji govorimo kako property
+        //treba izgledati u bazi: što je primarni ključ,
+        //što je obavezno, kolika je maksimalna duljina teksta i slično.
+
         [Key]
         public int Id { get; set; }
 

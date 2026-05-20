@@ -3,13 +3,19 @@ using Lab2.RezervacijeProstora.Models;
 
 namespace Lab2.RezervacijeProstora
 {
+    //DbContext je glavna EF klasa koja predstavlja vezu između
+    //aplikacije i baze. Preko njega dohvaćamo podatke, spremamo
+    //promjene i definiramo koje tablice postoje u bazi.
+
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
-        // DbSet za sve modele
+        // DbSet za sve modele,
+        // DbSet predstavlja tablicu u bazi.
+
         public DbSet<Korisnik> Korisnici { get; set; }
         public DbSet<ProstorZaProbu> Prostori { get; set; }
         public DbSet<Rezervacija> Rezervacije { get; set; }

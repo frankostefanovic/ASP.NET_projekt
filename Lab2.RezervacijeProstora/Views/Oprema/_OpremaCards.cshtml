@@ -1,0 +1,31 @@
+@model List<Oprema>
+
+<div class="cards-grid">
+    @foreach (var oprema in Model)
+    {
+        <article class="custom-card">
+            <h3>@oprema.Naziv</h3>
+            <p>@oprema.Proizvodac</p>
+
+            <div class="card-meta">
+                <span>@oprema.Vrijednost €</span>
+                <span>@oprema.Prostori.Count prostora</span>
+            </div>
+
+            <div class="tag-row">
+                @if (oprema.Ispravna)
+                {
+                    <span class="tag">Ispravna</span>
+                }
+                else
+                {
+                    <span class="tag muted">Neispravna</span>
+                }
+            </div>
+
+            <a asp-controller="Oprema" asp-action="Details" asp-route-id="@oprema.Id" class="details-link">Detalji opreme</a>
+            <a asp-action="Edit" asp-route-id="@oprema.Id" class="details-link">Uredi</a>
+            <a asp-action="Delete" asp-route-id="@oprema.Id" class="details-link">Obriši</a>
+        </article>
+    }
+</div>

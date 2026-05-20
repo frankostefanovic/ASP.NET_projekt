@@ -1,0 +1,26 @@
+@{
+    var fieldName = (string)(ViewData["AutocompleteField"] ?? string.Empty);
+    var label = (string)(ViewData["AutocompleteLabel"] ?? fieldName);
+    var url = (string)(ViewData["AutocompleteUrl"] ?? string.Empty);
+    var value = ViewData["AutocompleteValue"]?.ToString() ?? string.Empty;
+    var text = ViewData["AutocompleteText"]?.ToString() ?? string.Empty;
+    var inputId = fieldName + "_autocomplete";
+
+    if (value == "0")
+    {
+        value = string.Empty;
+    }
+}
+
+<div class="autocomplete-control" data-autocomplete data-autocomplete-url="@url">
+    <label class="form-label" for="@inputId">@label</label>
+    <input id="@inputId" class="form-control" type="text" value="@text" autocomplete="off" data-autocomplete-text />
+    <input type="hidden"
+           name="@fieldName"
+           value="@value"
+           data-autocomplete-value
+           data-val="true"
+           data-val-required="Polje @label je obavezno." />
+    <div class="autocomplete-menu" data-autocomplete-menu></div>
+    <span class="text-danger field-validation-valid" data-valmsg-for="@fieldName" data-valmsg-replace="true"></span>
+</div>

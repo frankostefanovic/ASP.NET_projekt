@@ -1,0 +1,22 @@
+@model Korisnik
+
+@{
+    ViewData["Title"] = "Uredi korisnika";
+}
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">CRUD</p>
+        <h1>Uredi korisnika</h1>
+    </div>
+
+    <form asp-action="Edit" method="post" class="row g-3">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <partial name="_KorisnikForm" model="Model" />
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

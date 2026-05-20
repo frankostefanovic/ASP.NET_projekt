@@ -1,0 +1,20 @@
+@model List<Vlasnik>
+
+<div class="cards-grid">
+    @foreach (var vlasnik in Model)
+    {
+        <article class="custom-card">
+            <h3>@vlasnik.ImePrezime</h3>
+            <p>@vlasnik.Email</p>
+
+            <div class="card-meta">
+                <span>@vlasnik.Prostori.Count prostora</span>
+                <span>@vlasnik.DatumRegistracije.ToString("dd.MM.yyyy.")</span>
+            </div>
+
+            <a asp-controller="Vlasnik" asp-action="Details" asp-route-id="@vlasnik.Id" class="details-link">Detalji vlasnika</a>
+            <a asp-action="Edit" asp-route-id="@vlasnik.Id" class="details-link">Uredi</a>
+            <a asp-action="Delete" asp-route-id="@vlasnik.Id" class="details-link">Obriši</a>
+        </article>
+    }
+</div>

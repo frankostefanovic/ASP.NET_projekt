@@ -1,0 +1,22 @@
+@model Rezervacija
+
+@{
+    ViewData["Title"] = "Uredi rezervaciju";
+}
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">CRUD</p>
+        <h1>Uredi rezervaciju</h1>
+    </div>
+
+    <form asp-action="Edit" method="post" class="row g-3">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <partial name="_RezervacijaForm" model="Model" />
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

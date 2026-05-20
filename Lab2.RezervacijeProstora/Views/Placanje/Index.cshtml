@@ -15,39 +15,15 @@
         <p class="eyebrow">Pregled</p>
         <h1>Plaćanja</h1>
         <p>Popis svih izvršenih i neizvršenih plaćanja.</p>
+        <a asp-action="Create" class="btn btn-primary">Novo plaćanje</a>
     </div>
 
-    <div class="cards-grid">
-        @foreach (var placanje in Model)
-        {
-            <article class="custom-card">
-                <h3>Transakcija #@placanje.Id</h3>
+    @{
+        ViewData["SearchPlaceholder"] = "Transakcija, način plaćanja, korisnik ili prostor";
+    }
+    <partial name="_AjaxSearch" />
 
-                <p>@placanje.Rezervacija.Prostor.Naziv</p>
-
-                <div class="card-meta">
-                    <span>@placanje.Iznos €</span>
-                    <span>@placanje.NacinPlacanja</span>
-                </div>
-
-                <div class="tag-row">
-                    @if (placanje.Uspjesno)
-                    {
-                        <span class="tag">Uspješno</span>
-                    }
-                    else
-                    {
-                        <span class="tag muted">Neuspješno</span>
-                    }
-                </div>
-
-                <a asp-controller="Placanje"
-                       asp-action="Details"
-                       asp-route-id="@placanje.Id"
-                       class="details-link">
-                    Detalji plaćanja
-                </a>
-            </article>
-        }
+    <div id="ajax-results">
+        <partial name="_PlacanjeCards" model="Model" />
     </div>
 </section>

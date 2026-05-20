@@ -1,0 +1,31 @@
+@model List<Placanje>
+
+<div class="cards-grid">
+    @foreach (var placanje in Model)
+    {
+        <article class="custom-card">
+            <h3>Transakcija #@placanje.Id</h3>
+            <p>@placanje.Rezervacija.Prostor.Naziv</p>
+
+            <div class="card-meta">
+                <span>@placanje.Iznos €</span>
+                <span>@placanje.NacinPlacanja</span>
+            </div>
+
+            <div class="tag-row">
+                @if (placanje.Uspjesno)
+                {
+                    <span class="tag">Uspješno</span>
+                }
+                else
+                {
+                    <span class="tag muted">Neuspješno</span>
+                }
+            </div>
+
+            <a asp-controller="Placanje" asp-action="Details" asp-route-id="@placanje.Id" class="details-link">Detalji plaćanja</a>
+            <a asp-action="Edit" asp-route-id="@placanje.Id" class="details-link">Uredi</a>
+            <a asp-action="Delete" asp-route-id="@placanje.Id" class="details-link">Obriši</a>
+        </article>
+    }
+</div>

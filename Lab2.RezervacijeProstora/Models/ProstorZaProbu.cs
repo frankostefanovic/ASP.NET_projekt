@@ -34,6 +34,8 @@ namespace Lab2.RezervacijeProstora.Models
         [ForeignKey(nameof(VlasnikId))]
         public virtual Vlasnik Vlasnik { get; set; } = null!;
 
+        //Jedan prostor može imati više opreme, više rezervacija i više recenzija.
+
         public virtual ICollection<Oprema> Oprema { get; set; }
         public virtual ICollection<Rezervacija> Rezervacije { get; set; }
         public virtual ICollection<Recenzija> Recenzije { get; set; }

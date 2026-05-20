@@ -1,0 +1,26 @@
+@model Korisnik
+
+@{
+    ViewData["Title"] = "Obriši korisnika";
+}
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">CRUD</p>
+        <h1>Obriši korisnika</h1>
+        <p>Potvrdi brisanje korisnika @Model.ImePrezime.</p>
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Korisničko ime</dt>
+        <dd class="col-sm-9">@Model.KorisnickoIme</dd>
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@Model.Email</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Obriši</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Odustani</a>
+    </form>
+</section>

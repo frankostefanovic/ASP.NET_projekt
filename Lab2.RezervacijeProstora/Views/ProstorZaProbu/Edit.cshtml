@@ -1,0 +1,22 @@
+@model ProstorZaProbu
+
+@{
+    ViewData["Title"] = "Uredi prostor";
+}
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">CRUD</p>
+        <h1>Uredi prostor za probu</h1>
+    </div>
+
+    <form asp-action="Edit" method="post" class="row g-3">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <partial name="_ProstorZaProbuForm" model="Model" />
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -302,6 +302,156 @@ body {
     padding: 18px;
 }
 
+.ajax-search {
+    margin: 24px 0;
+    padding: 18px;
+    border: 1px solid #2b3040;
+    border-radius: 12px;
+    background: #171a23;
+}
+
+.ajax-search-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.ajax-search-row .form-control {
+    min-height: 44px;
+}
+
+.ajax-search-status {
+    min-height: 24px;
+    margin: 10px 0 0;
+    color: #a1a1aa;
+}
+
+.autocomplete-control {
+    position: relative;
+}
+
+.autocomplete-menu {
+    position: absolute;
+    z-index: 20;
+    left: 0;
+    right: 0;
+    top: calc(100% + 4px);
+    display: grid;
+    max-height: 240px;
+    overflow-y: auto;
+    border: 1px solid #2b3040;
+    border-radius: 10px;
+    background: #171a23;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+}
+
+.autocomplete-menu:empty {
+    display: none;
+}
+
+.autocomplete-item {
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 0;
+    border-bottom: 1px solid #2b3040;
+    background: transparent;
+    color: #f4f4f5;
+    text-align: left;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item:focus-visible {
+    background: #272b3a;
+}
+
+.date-picker-control {
+    position: relative;
+}
+
+.date-picker-input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.date-picker-input-row .form-control {
+    min-height: 44px;
+}
+
+.date-picker-panel {
+    position: absolute;
+    z-index: 30;
+    left: 0;
+    top: calc(100% + 6px);
+    display: none;
+    width: min(340px, 92vw);
+    padding: 14px;
+    border: 1px solid #2b3040;
+    border-radius: 12px;
+    background: #171a23;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+}
+
+.date-picker-panel.open {
+    display: block;
+}
+
+.date-picker-header,
+.date-picker-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.date-picker-header button,
+.date-picker-day {
+    border: 0;
+    border-radius: 8px;
+    background: #272b3a;
+    color: #f4f4f5;
+}
+
+.date-picker-header button {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+}
+
+.date-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin: 12px 0;
+}
+
+.date-picker-day-name {
+    min-height: 30px;
+    color: #a1a1aa;
+    text-align: center;
+    font-size: 12px;
+}
+
+.date-picker-day {
+    min-width: 0;
+    min-height: 38px;
+    padding: 0;
+}
+
+.date-picker-day:hover,
+.date-picker-day:focus-visible,
+.date-picker-day.selected {
+    background: #7c3aed;
+}
+
+.date-picker-day.muted {
+    color: #71717a;
+}
+
+.date-picker-footer .form-control {
+    max-width: 120px;
+    min-height: 44px;
+}
+
 html {
     min-height: 100%;
 }

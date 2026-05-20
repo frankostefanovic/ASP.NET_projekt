@@ -1,0 +1,63 @@
+@model ProstorZaProbu
+
+<div class="col-md-6">
+    <label asp-for="Naziv" class="form-label"></label>
+    <input asp-for="Naziv" class="form-control" />
+    <span asp-validation-for="Naziv" class="text-danger"></span>
+</div>
+<div class="col-md-3">
+    <label asp-for="KapacitetOsoba" class="form-label"></label>
+    <input asp-for="KapacitetOsoba" class="form-control" type="number" />
+    <span asp-validation-for="KapacitetOsoba" class="text-danger"></span>
+</div>
+<div class="col-md-3">
+    <label asp-for="CijenaPoSatu" class="form-label"></label>
+    <input asp-for="CijenaPoSatu" class="form-control" type="number" step="0.01" />
+    <span asp-validation-for="CijenaPoSatu" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    @{
+        ViewData["AutocompleteField"] = nameof(Model.LokacijaId);
+        ViewData["AutocompleteLabel"] = "Lokacija";
+        ViewData["AutocompleteUrl"] = Url.Action("Autocomplete", "Lokacija");
+        ViewData["AutocompleteValue"] = Model.LokacijaId;
+        ViewData["AutocompleteText"] = ViewBag.LokacijaLabel;
+    }
+    <partial name="_AutocompleteInput" />
+</div>
+<div class="col-md-6">
+    @{
+        ViewData["AutocompleteField"] = nameof(Model.VlasnikId);
+        ViewData["AutocompleteLabel"] = "Vlasnik";
+        ViewData["AutocompleteUrl"] = Url.Action("Autocomplete", "Vlasnik");
+        ViewData["AutocompleteValue"] = Model.VlasnikId;
+        ViewData["AutocompleteText"] = ViewBag.VlasnikLabel;
+    }
+    <partial name="_AutocompleteInput" />
+</div>
+<div class="col-md-6">
+    @{
+        ViewData["DatePickerField"] = nameof(Model.DatumDodavanja);
+        ViewData["DatePickerLabel"] = "Datum dodavanja";
+        ViewData["DatePickerValue"] = Model.DatumDodavanja;
+    }
+    <partial name="_DatePicker" />
+</div>
+<div class="col-md-6 d-flex gap-4 align-items-end">
+    <div class="form-check">
+        <input asp-for="ImaParking" class="form-check-input" />
+        <label asp-for="ImaParking" class="form-check-label"></label>
+    </div>
+    <div class="form-check">
+        <input asp-for="ImaKlimu" class="form-check-input" />
+        <label asp-for="ImaKlimu" class="form-check-label"></label>
+    </div>
+    <div class="form-check">
+        <input asp-for="Aktivan" class="form-check-input" />
+        <label asp-for="Aktivan" class="form-check-label"></label>
+    </div>
+</div>
+<div class="col-12">
+    <button type="submit" class="btn btn-primary">Spremi</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Odustani</a>
+</div>

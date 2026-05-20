@@ -1,0 +1,65 @@
+@model Rezervacija
+
+<div class="col-md-6">
+    @{
+        ViewData["AutocompleteField"] = nameof(Model.KorisnikId);
+        ViewData["AutocompleteLabel"] = "Korisnik";
+        ViewData["AutocompleteUrl"] = Url.Action("Autocomplete", "Korisnik");
+        ViewData["AutocompleteValue"] = Model.KorisnikId;
+        ViewData["AutocompleteText"] = ViewBag.KorisnikLabel;
+    }
+    <partial name="_AutocompleteInput" />
+</div>
+<div class="col-md-6">
+    @{
+        ViewData["AutocompleteField"] = nameof(Model.ProstorId);
+        ViewData["AutocompleteLabel"] = "Prostor";
+        ViewData["AutocompleteUrl"] = Url.Action("Autocomplete", "ProstorZaProbu");
+        ViewData["AutocompleteValue"] = Model.ProstorId;
+        ViewData["AutocompleteText"] = ViewBag.ProstorLabel;
+    }
+    <partial name="_AutocompleteInput" />
+</div>
+<div class="col-md-6">
+    @{
+        ViewData["DatePickerField"] = nameof(Model.DatumVrijemeOd);
+        ViewData["DatePickerLabel"] = "Datum i vrijeme od";
+        ViewData["DatePickerValue"] = Model.DatumVrijemeOd;
+    }
+    <partial name="_DatePicker" />
+</div>
+<div class="col-md-6">
+    @{
+        ViewData["DatePickerField"] = nameof(Model.DatumVrijemeDo);
+        ViewData["DatePickerLabel"] = "Datum i vrijeme do";
+        ViewData["DatePickerValue"] = Model.DatumVrijemeDo;
+    }
+    <partial name="_DatePicker" />
+</div>
+<div class="col-md-4">
+    @{
+        ViewData["DatePickerField"] = nameof(Model.DatumKreiranja);
+        ViewData["DatePickerLabel"] = "Datum kreiranja";
+        ViewData["DatePickerValue"] = Model.DatumKreiranja;
+    }
+    <partial name="_DatePicker" />
+</div>
+<div class="col-md-4">
+    <label asp-for="Status" class="form-label"></label>
+    <select asp-for="Status" asp-items="Html.GetEnumSelectList<StatusRezervacije>()" class="form-select"></select>
+    <span asp-validation-for="Status" class="text-danger"></span>
+</div>
+<div class="col-md-4">
+    <label asp-for="BrojSudionika" class="form-label"></label>
+    <input asp-for="BrojSudionika" class="form-control" type="number" />
+    <span asp-validation-for="BrojSudionika" class="text-danger"></span>
+</div>
+<div class="col-12">
+    <label asp-for="Napomena" class="form-label"></label>
+    <textarea asp-for="Napomena" class="form-control" rows="4"></textarea>
+    <span asp-validation-for="Napomena" class="text-danger"></span>
+</div>
+<div class="col-12">
+    <button type="submit" class="btn btn-primary">Spremi</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Odustani</a>
+</div>

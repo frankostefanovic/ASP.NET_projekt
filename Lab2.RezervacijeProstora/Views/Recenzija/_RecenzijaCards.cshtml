@@ -1,0 +1,22 @@
+@model List<Recenzija>
+
+<div class="cards-grid">
+    @foreach (var recenzija in Model)
+    {
+        <article class="custom-card">
+            <h3>@recenzija.Prostor.Naziv</h3>
+            <p>@recenzija.Korisnik.ImePrezime</p>
+
+            <div class="card-meta">
+                <span>Ocjena: @recenzija.Ocjena/5</span>
+                <span>@recenzija.DatumRecenzije.ToString("dd.MM.yyyy.")</span>
+            </div>
+
+            <p>@recenzija.Komentar</p>
+
+            <a asp-controller="Recenzija" asp-action="Details" asp-route-id="@recenzija.Id" class="details-link">Detalji recenzije</a>
+            <a asp-action="Edit" asp-route-id="@recenzija.Id" class="details-link">Uredi</a>
+            <a asp-action="Delete" asp-route-id="@recenzija.Id" class="details-link">Obriši</a>
+        </article>
+    }
+</div>

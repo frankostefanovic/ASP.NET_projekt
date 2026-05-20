@@ -1,0 +1,19 @@
+@model Placanje
+
+@{
+    ViewData["Title"] = "Obriši plaćanje";
+}
+
+<section class="section-block">
+    <div class="section-heading">
+        <p class="eyebrow">CRUD</p>
+        <h1>Obriši plaćanje</h1>
+        <p>Potvrdi brisanje plaćanja za rezervaciju #@Model.RezervacijaId.</p>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Obriši</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Odustani</a>
+    </form>
+</section>

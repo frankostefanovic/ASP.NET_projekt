@@ -1,0 +1,45 @@
+@model Placanje
+
+<div class="col-md-6">
+    @{
+        ViewData["AutocompleteField"] = nameof(Model.RezervacijaId);
+        ViewData["AutocompleteLabel"] = "Rezervacija";
+        ViewData["AutocompleteUrl"] = Url.Action("AutocompleteRezervacije", "Placanje");
+        ViewData["AutocompleteValue"] = Model.RezervacijaId;
+        ViewData["AutocompleteText"] = ViewBag.RezervacijaLabel;
+    }
+    <partial name="_AutocompleteInput" />
+</div>
+<div class="col-md-6">
+    <label asp-for="Iznos" class="form-label"></label>
+    <input asp-for="Iznos" class="form-control" type="number" step="0.01" />
+    <span asp-validation-for="Iznos" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    @{
+        ViewData["DatePickerField"] = nameof(Model.DatumPlacanja);
+        ViewData["DatePickerLabel"] = "Datum plaćanja";
+        ViewData["DatePickerValue"] = Model.DatumPlacanja;
+    }
+    <partial name="_DatePicker" />
+</div>
+<div class="col-md-6">
+    <label asp-for="NacinPlacanja" class="form-label"></label>
+    <select asp-for="NacinPlacanja" asp-items="Html.GetEnumSelectList<NacinPlacanja>()" class="form-select"></select>
+    <span asp-validation-for="NacinPlacanja" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    <label asp-for="BrojTransakcije" class="form-label"></label>
+    <input asp-for="BrojTransakcije" class="form-control" />
+    <span asp-validation-for="BrojTransakcije" class="text-danger"></span>
+</div>
+<div class="col-md-6 d-flex align-items-end">
+    <div class="form-check">
+        <input asp-for="Uspjesno" class="form-check-input" />
+        <label asp-for="Uspjesno" class="form-check-label"></label>
+    </div>
+</div>
+<div class="col-12">
+    <button type="submit" class="btn btn-primary">Spremi</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Odustani</a>
+</div>

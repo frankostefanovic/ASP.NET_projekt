@@ -1,0 +1,24 @@
+@{
+    var fieldName = (string)(ViewData["DatePickerField"] ?? string.Empty);
+    var label = (string)(ViewData["DatePickerLabel"] ?? fieldName);
+    var value = ViewData["DatePickerValue"] is DateTime dateValue ? dateValue : DateTime.Today;
+    var inputId = fieldName + "_date_picker";
+    var displayValue = value.ToString("dd.MM.yyyy. HH:mm");
+    var submitValue = value.ToString("yyyy-MM-ddTHH:mm");
+}
+
+<div class="date-picker-control" data-date-picker>
+    <label class="form-label" for="@inputId">@label</label>
+    <div class="date-picker-input-row">
+        <input id="@inputId" class="form-control" type="text" value="@displayValue" placeholder="dd.MM.yyyy. HH:mm" autocomplete="off" data-date-picker-display />
+        <button type="button" class="btn btn-outline-secondary" data-date-picker-toggle>Odaberi</button>
+    </div>
+    <input type="hidden"
+           name="@fieldName"
+           value="@submitValue"
+           data-date-picker-value
+           data-val="true"
+           data-val-required="Polje @label je obavezno." />
+    <div class="date-picker-panel" data-date-picker-panel></div>
+    <span class="text-danger field-validation-valid" data-valmsg-for="@fieldName" data-valmsg-replace="true"></span>
+</div>

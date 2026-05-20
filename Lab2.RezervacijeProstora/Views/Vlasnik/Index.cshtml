@@ -15,27 +15,15 @@
         <p class="eyebrow">Pregled</p>
         <h1>Vlasnici</h1>
         <p>Popis vlasnika prostora za probe.</p>
+        <a asp-action="Create" class="btn btn-primary">Novi vlasnik</a>
     </div>
 
-    <div class="cards-grid">
-        @foreach (var vlasnik in Model)
-        {
-            <article class="custom-card">
-                <h3>@vlasnik.ImePrezime</h3>
-                <p>@vlasnik.Email</p>
+    @{
+        ViewData["SearchPlaceholder"] = "Ime, email, telefon ili OIB";
+    }
+    <partial name="_AjaxSearch" />
 
-                <div class="card-meta">
-                    <span>@vlasnik.Prostori.Count prostora</span>
-                    <span>@vlasnik.DatumRegistracije.ToString("dd.MM.yyyy.")</span>
-                </div>
-
-                <a asp-controller="Vlasnik"
-                       asp-action="Details"
-                       asp-route-id="@vlasnik.Id"
-                       class="details-link">
-                    Detalji vlasnika
-                </a>
-            </article>
-        }
+    <div id="ajax-results">
+        <partial name="_VlasnikCards" model="Model" />
     </div>
 </section>

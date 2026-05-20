@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//Registriraj ApplicationDbContext u dependency injection container i koristi SQLite bazu iz connection stringa
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -55,6 +56,9 @@ app.MapControllerRoute(
     pattern: "korisnici/detalji/{id:int}",
     defaults: new { controller = "Korisnik", action = "Details" })
     .WithStaticAssets();
+
+//Default ruta ima tri dijela: controller, action i opcionalni id
+//Ako nešto nije navedeno, koriste se zadane vrijednosti Home i Index.
 
 app.MapControllerRoute(
     name: "default",

@@ -1,0 +1,20 @@
+@model List<Lokacija>
+
+<div class="cards-grid">
+    @foreach (var lokacija in Model)
+    {
+        <article class="custom-card">
+            <h3>@lokacija.Grad</h3>
+            <p>@lokacija.Adresa</p>
+
+            <div class="card-meta">
+                <span>@lokacija.PostanskiBroj</span>
+                <span>@lokacija.Drzava</span>
+            </div>
+
+            <a asp-controller="Lokacija" asp-action="Details" asp-route-id="@lokacija.Id" class="details-link">Detalji lokacije</a>
+            <a asp-action="Edit" asp-route-id="@lokacija.Id" class="details-link">Uredi</a>
+            <a asp-action="Delete" asp-route-id="@lokacija.Id" class="details-link">Obriši</a>
+        </article>
+    }
+</div>

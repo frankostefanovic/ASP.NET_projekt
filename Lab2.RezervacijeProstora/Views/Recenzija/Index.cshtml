@@ -15,29 +15,15 @@
         <p class="eyebrow">Pregled</p>
         <h1>Recenzije</h1>
         <p>Mišljenja korisnika o prostorima za probe.</p>
+        <a asp-action="Create" class="btn btn-primary">Nova recenzija</a>
     </div>
 
-    <div class="cards-grid">
-        @foreach (var recenzija in Model)
-        {
-            <article class="custom-card">
-                <h3>@recenzija.Prostor.Naziv</h3>
-                <p>@recenzija.Korisnik.ImePrezime</p>
+    @{
+        ViewData["SearchPlaceholder"] = "Korisnik, prostor ili komentar";
+    }
+    <partial name="_AjaxSearch" />
 
-                <div class="card-meta">
-                    <span>Ocjena: @recenzija.Ocjena/5</span>
-                    <span>@recenzija.DatumRecenzije.ToString("dd.MM.yyyy.")</span>
-                </div>
-
-                <p>@recenzija.Komentar</p>
-
-                <a asp-controller="Recenzija"
-                       asp-action="Details"
-                       asp-route-id="@recenzija.Id"
-                       class="details-link">
-                    Detalji recenzije
-                </a>
-            </article>
-        }
+    <div id="ajax-results">
+        <partial name="_RecenzijaCards" model="Model" />
     </div>
 </section>

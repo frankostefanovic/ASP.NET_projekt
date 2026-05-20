@@ -1,0 +1,39 @@
+@model Korisnik
+
+<div class="col-md-6">
+    <label asp-for="KorisnickoIme" class="form-label"></label>
+    <input asp-for="KorisnickoIme" class="form-control" />
+    <span asp-validation-for="KorisnickoIme" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    <label asp-for="ImePrezime" class="form-label"></label>
+    <input asp-for="ImePrezime" class="form-control" />
+    <span asp-validation-for="ImePrezime" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    <label asp-for="Email" class="form-label"></label>
+    <input asp-for="Email" class="form-control" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    <label asp-for="BrojTelefona" class="form-label"></label>
+    <input asp-for="BrojTelefona" class="form-control" />
+    <span asp-validation-for="BrojTelefona" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    @{
+        ViewData["DatePickerField"] = nameof(Model.DatumRegistracije);
+        ViewData["DatePickerLabel"] = "Datum registracije";
+        ViewData["DatePickerValue"] = Model.DatumRegistracije;
+    }
+    <partial name="_DatePicker" />
+</div>
+<div class="col-md-6">
+    <label asp-for="TipKorisnika" class="form-label"></label>
+    <select asp-for="TipKorisnika" asp-items="Html.GetEnumSelectList<TipKorisnika>()" class="form-select"></select>
+    <span asp-validation-for="TipKorisnika" class="text-danger"></span>
+</div>
+<div class="col-12">
+    <button type="submit" class="btn btn-primary">Spremi</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Odustani</a>
+</div>

@@ -15,27 +15,15 @@
         <p class="eyebrow">Pregled</p>
         <h1>Lokacije</h1>
         <p>Popis lokacija na kojima se nalaze prostori za probe.</p>
+        <a asp-action="Create" class="btn btn-primary">Nova lokacija</a>
     </div>
 
-    <div class="cards-grid">
-        @foreach (var lokacija in Model)
-        {
-            <article class="custom-card">
-                <h3>@lokacija.Grad</h3>
-                <p>@lokacija.Adresa</p>
+    @{
+        ViewData["SearchPlaceholder"] = "Grad, adresa, poštanski broj ili država";
+    }
+    <partial name="_AjaxSearch" />
 
-                <div class="card-meta">
-                    <span>@lokacija.PostanskiBroj</span>
-                    <span>@lokacija.Drzava</span>
-                </div>
-
-                <a asp-controller="Lokacija"
-                       asp-action="Details"
-                       asp-route-id="@lokacija.Id"
-                       class="details-link">
-                    Detalji lokacije
-                </a>
-            </article>
-        }
+    <div id="ajax-results">
+        <partial name="_LokacijaCards" model="Model" />
     </div>
 </section>
