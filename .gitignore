@@ -10,3 +10,6 @@ obj/
 *.db
 *.db-shm
 *.db-wal
+
+.chrome-profile/
+.edge-profile/
