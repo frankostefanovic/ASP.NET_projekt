@@ -39,12 +39,14 @@ namespace Lab2.RezervacijeProstora.Models
         public virtual ICollection<Oprema> Oprema { get; set; }
         public virtual ICollection<Rezervacija> Rezervacije { get; set; }
         public virtual ICollection<Recenzija> Recenzije { get; set; }
+        public virtual ICollection<ProstorDatoteka> Datoteke { get; set; }
 
         public ProstorZaProbu()
         {
             Oprema = new HashSet<Oprema>();
             Rezervacije = new HashSet<Rezervacija>();
             Recenzije = new HashSet<Recenzija>();
+            Datoteke = new HashSet<ProstorDatoteka>();
         }
 
         public ProstorZaProbu(int id, string naziv, int kapacitetOsoba, decimal cijenaPoSatu, bool imaParking, bool imaKlimu, bool aktivan, DateTime datumDodavanja, Lokacija lokacija, Vlasnik vlasnik)
@@ -64,6 +66,7 @@ namespace Lab2.RezervacijeProstora.Models
             Oprema = new HashSet<Oprema>();
             Rezervacije = new HashSet<Rezervacija>();
             Recenzije = new HashSet<Recenzija>();
+            Datoteke = new HashSet<ProstorDatoteka>();
         }
 
         public decimal ProsjecnaOcjena()

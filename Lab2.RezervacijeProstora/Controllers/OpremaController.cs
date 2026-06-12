@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab2.RezervacijeProstora.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab2.RezervacijeProstora.Controllers
 {
+    [Authorize]
     public class OpremaController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -13,6 +15,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var oprema = await _context.Oprema
@@ -23,6 +26,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(oprema);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Search(string? q)
         {
             var query = _context.Oprema
@@ -58,12 +62,14 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(oprema);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Naziv,Proizvodac,Ispravna,Vrijednost")] Oprema oprema)
         {
@@ -77,6 +83,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(oprema);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(int id)
         {
             var oprema = await _context.Oprema.FindAsync(id);
@@ -90,6 +97,7 @@ namespace Lab2.RezervacijeProstora.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Naziv,Proizvodac,Ispravna,Vrijednost")] Oprema oprema)
         {
@@ -121,6 +129,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(oprema);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var oprema = await _context.Oprema
@@ -136,6 +145,7 @@ namespace Lab2.RezervacijeProstora.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

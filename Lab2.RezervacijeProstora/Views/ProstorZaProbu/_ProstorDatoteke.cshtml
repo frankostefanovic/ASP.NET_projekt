@@ -1,0 +1,49 @@
+@model IEnumerable<Lab2.RezervacijeProstora.Models.ProstorDatoteka>
+
+@{
+    var canManageFiles = ViewBag.CanManageFiles as bool? ?? false;
+}
+
+@if (!Model.Any())
+{
+    <p class="text-muted mb-0">Nema ucitanih datoteka za ovaj prostor.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Tip</th>
+                    <th>Velicina</th>
+                    <th>Dodano</th>
+                    <th class="text-end">Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var datoteka in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="@datoteka.FilePath" target="_blank" rel="noopener">@datoteka.FileName</a>
+                        </td>
+                        <td>@datoteka.ContentType</td>
+                        <td>@((datoteka.FileSize / 1024m).ToString("0.##")) KB</td>
+                        <td>@datoteka.CreatedAt.ToString("dd.MM.yyyy. HH:mm")</td>
+                        <td class="text-end">
+                            @if (canManageFiles)
+                            {
+                                <button type="button"
+                                        class="btn btn-outline-danger btn-sm"
+                                        data-file-delete-url="@Url.Action("DeleteFile", "ProstorZaProbu", new { id = datoteka.Id })">
+                                    Obrisi
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

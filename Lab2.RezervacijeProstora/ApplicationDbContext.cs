@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Lab2.RezervacijeProstora.Models;
 
 namespace Lab2.RezervacijeProstora
@@ -7,7 +8,7 @@ namespace Lab2.RezervacijeProstora
     //aplikacije i baze. Preko njega dohvaćamo podatke, spremamo
     //promjene i definiramo koje tablice postoje u bazi.
 
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -24,6 +25,7 @@ namespace Lab2.RezervacijeProstora
         public DbSet<Recenzija> Recenzije { get; set; }
         public DbSet<Vlasnik> Vlasnici { get; set; }
         public DbSet<Lokacija> Lokacije { get; set; }
+        public DbSet<ProstorDatoteka> ProstorDatoteke { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -75,6 +77,12 @@ namespace Lab2.RezervacijeProstora
                 .HasMany(p => p.Oprema)
                 .WithMany(o => o.Prostori)
                 .UsingEntity(j => j.ToTable("ProstorOprema"));
+
+            modelBuilder.Entity<ProstorDatoteka>()
+                .HasOne(d => d.ProstorZaProbu)
+                .WithMany(p => p.Datoteke)
+                .HasForeignKey(d => d.ProstorZaProbuId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

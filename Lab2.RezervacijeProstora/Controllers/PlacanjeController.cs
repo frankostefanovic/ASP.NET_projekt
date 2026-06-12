@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Lab2.RezervacijeProstora.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab2.RezervacijeProstora.Controllers
 {
+    [Authorize]
     public class PlacanjeController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -14,6 +16,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var placanja = await _context.Placanja
@@ -27,6 +30,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(placanja);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Search(string? q)
         {
             var query = _context.Placanja
@@ -73,6 +77,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(placanje);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Create()
         {
             await PopulateAutocompleteLabelsAsync();
@@ -80,6 +85,7 @@ namespace Lab2.RezervacijeProstora.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Iznos,DatumPlacanja,Uspjesno,NacinPlacanja,BrojTransakcije,RezervacijaId")] Placanje placanje)
         {
@@ -96,6 +102,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(placanje);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(int id)
         {
             var placanje = await _context.Placanja.FindAsync(id);
@@ -110,6 +117,7 @@ namespace Lab2.RezervacijeProstora.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Iznos,DatumPlacanja,Uspjesno,NacinPlacanja,BrojTransakcije,RezervacijaId")] Placanje placanje)
         {
@@ -144,6 +152,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(placanje);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var placanje = await _context.Placanja
@@ -160,6 +169,7 @@ namespace Lab2.RezervacijeProstora.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -174,6 +184,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> AutocompleteRezervacije(string? term)
         {
             var query = _context.Rezervacije

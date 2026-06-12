@@ -3,6 +3,7 @@ using System;
 using Lab2.RezervacijeProstora;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab2.RezervacijeProstora.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260601150646_AddIdentityUsersAndRoles")]
+    partial class AddIdentityUsersAndRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
@@ -218,43 +221,6 @@ namespace Lab2.RezervacijeProstora.Migrations
                         .IsUnique();
 
                     b.ToTable("Placanja");
-                });
-
-            modelBuilder.Entity("Lab2.RezervacijeProstora.Models.ProstorDatoteka", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("FileSize")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProstorZaProbuId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProstorZaProbuId");
-
-                    b.ToTable("ProstorDatoteke");
                 });
 
             modelBuilder.Entity("Lab2.RezervacijeProstora.Models.ProstorZaProbu", b =>
@@ -562,17 +528,6 @@ namespace Lab2.RezervacijeProstora.Migrations
                     b.Navigation("Rezervacija");
                 });
 
-            modelBuilder.Entity("Lab2.RezervacijeProstora.Models.ProstorDatoteka", b =>
-                {
-                    b.HasOne("Lab2.RezervacijeProstora.Models.ProstorZaProbu", "ProstorZaProbu")
-                        .WithMany("Datoteke")
-                        .HasForeignKey("ProstorZaProbuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProstorZaProbu");
-                });
-
             modelBuilder.Entity("Lab2.RezervacijeProstora.Models.ProstorZaProbu", b =>
                 {
                     b.HasOne("Lab2.RezervacijeProstora.Models.Lokacija", "Lokacija")
@@ -710,8 +665,6 @@ namespace Lab2.RezervacijeProstora.Migrations
 
             modelBuilder.Entity("Lab2.RezervacijeProstora.Models.ProstorZaProbu", b =>
                 {
-                    b.Navigation("Datoteke");
-
                     b.Navigation("Recenzije");
 
                     b.Navigation("Rezervacije");

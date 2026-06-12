@@ -1,13 +1,24 @@
 using Lab2.RezervacijeProstora.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lab2.RezervacijeProstora.Data
 {
     public static class DbInitializer
     {
-        public static async Task InitializeAsync(ApplicationDbContext context)
+        public static async Task InitializeAsync(ApplicationDbContext context, IServiceProvider serviceProvider)
         {
-            await context.Database.MigrateAsync();
+            if (context.Database.IsRelational())
+            {
+                await context.Database.MigrateAsync();
+            }
+            else
+            {
+                await context.Database.EnsureCreatedAsync();
+            }
+
+            await SeedRolesAsync(serviceProvider);
+            await SeedUsersAsync(serviceProvider);
 
             if (await context.Prostori.AnyAsync())
                 return;
@@ -80,6 +91,78 @@ namespace Lab2.RezervacijeProstora.Data
             context.AddRange(rec1, rec2, rec3);
 
             await context.SaveChangesAsync();
+        }
+
+        private static async Task SeedRolesAsync(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            string[] roles = { "Admin", "Manager" };
+
+            foreach (var role in roles)
+            {
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
+            }
+        }
+
+        private static async Task SeedUsersAsync(IServiceProvider serviceProvider)
+        {
+            var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+
+            await EnsureUserAsync(
+                userManager,
+                "admin@example.com",
+                "Admin123!",
+                "11111111111",
+                "1111111111111",
+                "Admin");
+
+            await EnsureUserAsync(
+                userManager,
+                "manager@example.com",
+                "Manager123!",
+                "22222222222",
+                "2222222222222",
+                "Manager");
+
+            await EnsureUserAsync(
+                userManager,
+                "user@example.com",
+                "User123!",
+                "33333333333",
+                "3333333333333",
+                null);
+        }
+
+        private static async Task EnsureUserAsync(
+            UserManager<AppUser> userManager,
+            string email,
+            string password,
+            string oib,
+            string jmbg,
+            string? role)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                user = new AppUser
+                {
+                    UserName = email,
+                    Email = email,
+                    OIB = oib,
+                    JMBG = jmbg
+                };
+
+                await userManager.CreateAsync(user, password);
+            }
+
+            if (!string.IsNullOrWhiteSpace(role) && !await userManager.IsInRoleAsync(user, role))
+            {
+                await userManager.AddToRoleAsync(user, role);
+            }
         }
     }
 }

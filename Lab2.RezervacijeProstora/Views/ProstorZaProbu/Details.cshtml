@@ -66,6 +66,15 @@
     </article>
 
     <article class="details-panel">
+        <h2>Datoteke</h2>
+
+        @{
+            ViewBag.CanManageFiles = false;
+        }
+        <partial name="_ProstorDatoteke" model="Model.Datoteke.OrderByDescending(d => d.CreatedAt)" />
+    </article>
+
+    <article class="details-panel">
         <h2>Rezervacije</h2>
 
         @if (Model.Rezervacije.Count == 0)

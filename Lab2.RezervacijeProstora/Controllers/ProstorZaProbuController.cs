@@ -2,18 +2,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Lab2.RezervacijeProstora.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab2.RezervacijeProstora.Controllers
 {
+    [Authorize]
     public class ProstorZaProbuController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private static readonly HashSet<string> AllowedUploadContentTypes = new(StringComparer.OrdinalIgnoreCase)
+        {
+            "image/jpeg",
+            "image/png",
+            "image/webp",
+            "application/pdf",
+            "text/plain"
+        };
 
-        public ProstorZaProbuController(ApplicationDbContext context)
+        private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _environment;
+
+        public ProstorZaProbuController(ApplicationDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var prostori = await _context.Prostori
@@ -26,6 +40,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(prostori);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Search(string? q)
         {
             var query = _context.Prostori
@@ -50,6 +65,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return PartialView("_ProstorZaProbuCards", prostori);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Autocomplete(string? term)
         {
             var query = _context.Prostori
@@ -79,6 +95,7 @@ namespace Lab2.RezervacijeProstora.Controllers
                 .Include(p => p.Lokacija)
                 .Include(p => p.Vlasnik)
                 .Include(p => p.Oprema)
+                .Include(p => p.Datoteke)
                 .Include(p => p.Recenzije)
                     .ThenInclude(r => r.Korisnik)
                 .Include(p => p.Rezervacije)
@@ -93,6 +110,96 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(prostor);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IActionResult> Files(int id)
+        {
+            var datoteke = await _context.ProstorDatoteke
+                .Where(d => d.ProstorZaProbuId == id)
+                .OrderByDescending(d => d.CreatedAt)
+                .ToListAsync();
+
+            ViewBag.CanManageFiles = User.IsInRole("Admin") || User.IsInRole("Manager");
+            return PartialView("_ProstorDatoteke", datoteke);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadFiles(int id, List<IFormFile> files)
+        {
+            if (!await _context.Prostori.AnyAsync(p => p.Id == id))
+            {
+                return NotFound();
+            }
+
+            if (files.Count == 0)
+            {
+                return BadRequest("Odaberite barem jednu datoteku.");
+            }
+
+            var uploadRoot = Path.Combine(_environment.WebRootPath, "uploads", "prostori", id.ToString());
+            Directory.CreateDirectory(uploadRoot);
+
+            foreach (var file in files.Where(f => f.Length > 0))
+            {
+                if (!AllowedUploadContentTypes.Contains(file.ContentType))
+                {
+                    return BadRequest($"Tip datoteke nije podrzan: {file.FileName}");
+                }
+
+                var extension = Path.GetExtension(file.FileName);
+                var storedName = $"{Guid.NewGuid():N}{extension}";
+                var physicalPath = Path.Combine(uploadRoot, storedName);
+
+                await using (var stream = System.IO.File.Create(physicalPath))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                var relativePath = $"/uploads/prostori/{id}/{storedName}";
+                _context.ProstorDatoteke.Add(new ProstorDatoteka
+                {
+                    ProstorZaProbuId = id,
+                    FileName = Path.GetFileName(file.FileName),
+                    FilePath = relativePath,
+                    ContentType = file.ContentType,
+                    FileSize = file.Length,
+                    CreatedAt = DateTime.Now
+                });
+            }
+
+            await _context.SaveChangesAsync();
+            return await Files(id);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteFile(int id)
+        {
+            var datoteka = await _context.ProstorDatoteke.FindAsync(id);
+
+            if (datoteka == null)
+            {
+                return NotFound();
+            }
+
+            var prostorId = datoteka.ProstorZaProbuId;
+            var relativePath = datoteka.FilePath.TrimStart('/').Replace('/', Path.DirectorySeparatorChar);
+            var physicalPath = Path.Combine(_environment.WebRootPath, relativePath);
+
+            _context.ProstorDatoteke.Remove(datoteka);
+            await _context.SaveChangesAsync();
+
+            if (System.IO.File.Exists(physicalPath))
+            {
+                System.IO.File.Delete(physicalPath);
+            }
+
+            return await Files(prostorId);
+        }
+
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Create()
         {
             await PopulateAutocompleteLabelsAsync();
@@ -100,6 +207,7 @@ namespace Lab2.RezervacijeProstora.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Naziv,KapacitetOsoba,CijenaPoSatu,ImaParking,ImaKlimu,Aktivan,DatumDodavanja,LokacijaId,VlasnikId")] ProstorZaProbu prostor)
         {
@@ -116,6 +224,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(prostor);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(int id)
         {
             var prostor = await _context.Prostori.FindAsync(id);
@@ -130,6 +239,7 @@ namespace Lab2.RezervacijeProstora.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Naziv,KapacitetOsoba,CijenaPoSatu,ImaParking,ImaKlimu,Aktivan,DatumDodavanja,LokacijaId,VlasnikId")] ProstorZaProbu prostor)
         {
@@ -164,6 +274,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(prostor);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var prostor = await _context.Prostori
@@ -180,6 +291,7 @@ namespace Lab2.RezervacijeProstora.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -218,6 +330,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             ModelState.Remove(nameof(ProstorZaProbu.Oprema));
             ModelState.Remove(nameof(ProstorZaProbu.Rezervacije));
             ModelState.Remove(nameof(ProstorZaProbu.Recenzije));
+            ModelState.Remove(nameof(ProstorZaProbu.Datoteke));
         }
     }
 }

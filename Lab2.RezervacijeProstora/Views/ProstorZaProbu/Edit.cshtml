@@ -17,6 +17,37 @@
     </form>
 </section>
 
+<section class="section-block"
+         data-prostor-files
+         data-files-url="@Url.Action("Files", "ProstorZaProbu", new { id = Model.Id })"
+         data-upload-url="@Url.Action("UploadFiles", "ProstorZaProbu", new { id = Model.Id })">
+    @Html.AntiForgeryToken()
+
+    <div class="section-heading">
+        <p class="eyebrow">Datoteke</p>
+        <h2>Datoteke prostora</h2>
+    </div>
+
+    <div class="border border-2 border-dashed rounded-2 p-4 text-center mb-3"
+         role="button"
+         tabindex="0"
+         data-file-dropzone>
+        <strong>Odaberi ili povuci datoteke ovdje</strong>
+        <p class="text-muted mb-0">Podrzani su JPG, PNG, WEBP, PDF i TXT.</p>
+        <input type="file"
+               class="visually-hidden"
+               multiple
+               accept=".jpg,.jpeg,.png,.webp,.pdf,.txt"
+               data-file-input />
+    </div>
+
+    <p class="text-muted" data-file-status></p>
+    <div data-file-list>
+        <p class="text-muted mb-0">Datoteke se ucitavaju...</p>
+    </div>
+</section>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/prostor-files.js" asp-append-version="true"></script>
 }

@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab2.RezervacijeProstora.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab2.RezervacijeProstora.Controllers
 {
+    [Authorize]
     public class LokacijaController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -13,6 +15,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var lokacije = await _context.Lokacije
@@ -23,6 +26,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(lokacije);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Search(string? q)
         {
             var query = _context.Lokacije
@@ -45,6 +49,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return PartialView("_LokacijaCards", lokacije);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Autocomplete(string? term)
         {
             var query = _context.Lokacije.AsQueryable();
@@ -82,12 +87,14 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(lokacija);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Grad,Adresa,PostanskiBroj,Drzava")] Lokacija lokacija)
         {
@@ -101,6 +108,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(lokacija);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(int id)
         {
             var lokacija = await _context.Lokacije.FindAsync(id);
@@ -114,6 +122,7 @@ namespace Lab2.RezervacijeProstora.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Grad,Adresa,PostanskiBroj,Drzava")] Lokacija lokacija)
         {
@@ -145,6 +154,7 @@ namespace Lab2.RezervacijeProstora.Controllers
             return View(lokacija);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var lokacija = await _context.Lokacije
@@ -160,6 +170,7 @@ namespace Lab2.RezervacijeProstora.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
